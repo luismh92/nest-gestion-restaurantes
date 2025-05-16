@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DishEntity } from './entities/dish.entity';
@@ -12,26 +12,46 @@ export class DishService {
     private readonly dishRepository: Repository<DishEntity>,
   ) {}
 
-  findAll() {
-    return this.dishRepository.find();
+  async findAll() {
+    const dishes = await this.dishRepository.find();
+    if (!dishes) {
+      throw new NotFoundException('No se encontraron platos');
+    }
+
+    return dishes;
   }
 
-  findOne(id: number) {
-    return this.dishRepository.findOne({
-      where: { id },
-    });
+  async findOne(id: number) {
+    const dish = await this.dishRepository.findOneBy({ id });
+
+    if (!dish) {
+      throw new NotFoundException('Plato no encontrado');
+    }
+    return dish;
   }
 
   create(plato: CreateDishDto) {
     const entity = this.dishRepository.create(plato);
+
     return this.dishRepository.save(entity);
   }
 
-  update(id: number, platoDto: UpdateDishDto) {
+  async update(id: number, platoDto: UpdateDishDto) {
+    const dish = await this.dishRepository.findOneBy({ id });
+
+    if (!dish) {
+      throw new NotFoundException('Plato no encontrado');
+    }
+
     return this.dishRepository.update(id, platoDto);
   }
 
-  delete(id: number) {
+  async delete(id: number) {
+    const dish = await this.dishRepository.findOneBy({ id });
+
+    if (!dish) {
+      throw new NotFoundException('Plato no encontrado');
+    }
     return this.dishRepository.delete(id);
   }
 }

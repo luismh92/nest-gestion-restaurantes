@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RestauranteModule } from './restaurant/restaurant.module';
-import { PlatoModule } from './dish/dish.module';
+import { DishModule } from './dish/dish.module';
 import { TipoCocinaModule } from './tipo-cocina/tipo-cocina.module';
 import { DishEntity } from './dish/entities/dish.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -17,17 +17,17 @@ import { DishController } from './dish/dish.controller';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '29062013',
       database: 'gestion-restaurantes',
       entities: [DishEntity, TipoCocinaEntity, RestaurantEntity],
       synchronize: true,
       dropSchema: true,
     }),
     TipoCocinaModule,
-    PlatoModule,
+    DishModule,
     RestauranteModule,
   ],
-  controllers: [AppController, DishController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
-import { IsString, IsNotEmpty, IsNumber, Min } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, Min, IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CategoriaDish } from '../entities/dish.entity';
 
 export class CreateDishDto {
   @ApiProperty({
@@ -27,11 +28,11 @@ export class CreateDishDto {
   precio: number;
 
   @ApiProperty({
-    example: 2,
-    description:
-      'ID de la categoría del plato (ej: entrada, postre, plato fuerte, bebida)',
+    example: CategoriaDish.ENTRADA,
+    description: 'Categoría del plato (entrada, plato fuerte, postre, bebida)',
+    enum: CategoriaDish,
   })
-  @IsNumber()
+  @IsEnum(CategoriaDish)
   @IsNotEmpty()
-  categoriaId: number;
+  categoria: CategoriaDish;
 }

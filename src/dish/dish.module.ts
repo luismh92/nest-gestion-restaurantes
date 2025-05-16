@@ -16,4 +16,4 @@ import { DishController } from './dish.controller';
   providers: [DishService],
   controllers: [DishController],
 })
-export class PlatoModule {}
+export class DishModule {}
