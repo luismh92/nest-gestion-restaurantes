@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { RestaurantEntity } from 'src/restaurant/entities/restaurant.entity';
 
-export enum CategoriaPlato {
+export enum CategoriaDish {
   ENTRADA = 'entrada',
   PLATO_FUERTE = 'plato fuerte',
   POSTRE = 'postre',
@@ -15,7 +15,7 @@ export enum CategoriaPlato {
 }
 
 @Entity()
-export class PlatoEntity {
+export class DishEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,10 +30,10 @@ export class PlatoEntity {
 
   @Column({
     type: 'enum',
-    enum: CategoriaPlato,
+    enum: CategoriaDish,
     nullable: false,
   })
-  categoria: CategoriaPlato;
+  categoria: CategoriaDish;
 
   @ManyToMany(() => RestaurantEntity, (restaurant) => restaurant.platos)
   @JoinTable({

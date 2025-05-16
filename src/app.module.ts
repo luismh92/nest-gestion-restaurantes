@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RestauranteModule } from './restaurant/restaurant.module';
-import { PlatoModule } from './plato/plato.module';
+import { PlatoModule } from './dish/dish.module';
 import { TipoCocinaModule } from './tipo-cocina/tipo-cocina.module';
-import { PlatoEntity } from './plato/entities/plato.entity';
+import { DishEntity } from './dish/entities/dish.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RestaurantEntity } from './restaurant/entities/restaurant.entity';
 import { TipoCocinaEntity } from './restaurant/entities/tipo-cocina.entity';
-import { PlatoController } from './plato/plato.controller';
+import { DishController } from './dish/dish.controller';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { PlatoController } from './plato/plato.controller';
       username: 'postgres',
       password: 'postgres',
       database: 'gestion-restaurantes',
-      entities: [PlatoEntity, TipoCocinaEntity, RestaurantEntity],
+      entities: [DishEntity, TipoCocinaEntity, RestaurantEntity],
       synchronize: true,
       dropSchema: true,
     }),
@@ -27,7 +27,7 @@ import { PlatoController } from './plato/plato.controller';
     PlatoModule,
     RestauranteModule,
   ],
-  controllers: [AppController, PlatoController],
+  controllers: [AppController, DishController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -8,14 +8,14 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PlatoService } from './plato.service';
-import { ActualizarPlatoDto } from './dto/actualizar-plato.dto';
-import { CrearPlatoDto } from './dto/crear-plato.dto';
+import { DishService } from './dish.service';
+import { UpdateDishDto } from './dto/update-plato.dto';
+import { CreateDishDto } from './dto/create-plato.dto';
 
 @ApiTags('Dishes')
 @Controller('dishes')
-export class PlatoController {
-  constructor(private readonly platoService: PlatoService) {}
+export class DishController {
+  constructor(private readonly platoService: DishService) {}
 
   @Post()
   @ApiOperation({
@@ -27,8 +27,8 @@ export class PlatoController {
     status: 201,
     description: 'El plato ha sido creado exitosamente.',
   })
-  create(@Body() createPlatoDto: CrearPlatoDto) {
-    return this.platoService.create(createPlatoDto);
+  create(@Body() createDishDto: CreateDishDto) {
+    return this.platoService.create(createDishDto);
   }
 
   @Get()
@@ -48,7 +48,7 @@ export class PlatoController {
     description:
       'Busca y devuelve un plato específico mediante su identificador único.',
   })
-  @ApiResponse({ status: 200, description: 'Plato encontrado con éxito.' })
+  @ApiResponse({ status: 200, description: 'Dish encontrado con éxito.' })
   findOne(@Param('id') id: string) {
     return this.platoService.findOne(+id);
   }
@@ -63,8 +63,8 @@ export class PlatoController {
     status: 200,
     description: 'El plato ha sido actualizado correctamente.',
   })
-  update(@Param('id') id: string, @Body() updatePlatoDto: ActualizarPlatoDto) {
-    return this.platoService.update(+id, updatePlatoDto);
+  update(@Param('id') id: string, @Body() updateDishDto: UpdateDishDto) {
+    return this.platoService.update(+id, updateDishDto);
   }
 
   @Delete(':id')

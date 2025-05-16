@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { TipoCocinaEntity } from './tipo-cocina.entity';
-import { PlatoEntity } from 'src/plato/entities/plato.entity';
+import { DishEntity } from 'src/dish/entities/dish.entity';
 
 @Entity()
 export class RestaurantEntity {
@@ -31,6 +31,6 @@ export class RestaurantEntity {
   @Column()
   tipoCocinaId: number;
 
-  @ManyToMany(() => PlatoEntity, (plato) => plato.restaurantes)
-  platos: PlatoEntity[];
+  @ManyToMany(() => DishEntity, (plato) => plato.restaurantes)
+  platos: DishEntity[];
 }

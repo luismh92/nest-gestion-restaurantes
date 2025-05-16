@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
-import { PlatoService } from './plato.service';
+import { DishService } from './dish.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PlatoEntity } from './entities/plato.entity';
+import { DishEntity } from './entities/dish.entity';
 
 import { forwardRef } from '@nestjs/common';
 import { RestauranteModule } from 'src/restaurant/restaurant.module';
 import { RestaurantEntity } from 'src/restaurant/entities/restaurant.entity';
-import { PlatoController } from './plato.controller';
+import { DishController } from './dish.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([PlatoEntity, RestaurantEntity]),
+    TypeOrmModule.forFeature([DishEntity, RestaurantEntity]),
     forwardRef(() => RestauranteModule),
   ],
-  providers: [PlatoService],
-  controllers: [PlatoController],
+  providers: [DishService],
+  controllers: [DishController],
 })
 export class PlatoModule {}

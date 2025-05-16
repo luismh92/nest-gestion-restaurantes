@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PlatoService } from './plato.service';
+import { PlatoService } from './dish.service';
 
 describe('PlatoService', () => {
   let service: PlatoService;

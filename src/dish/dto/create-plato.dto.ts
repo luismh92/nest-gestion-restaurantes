@@ -1,7 +1,7 @@
 import { IsString, IsNotEmpty, IsNumber, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CrearPlatoDto {
+export class CreateDishDto {
   @ApiProperty({
     example: 'Bandeja Paisa',
     description: 'Nombre del plato',
