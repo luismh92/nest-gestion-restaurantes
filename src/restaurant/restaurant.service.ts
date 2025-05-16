@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RestauranteEntity } from './entities/restaurante.entity';
-import { CrearRestauranteDto } from './dto/crear-restaurante.dto';
-import { ActualizarRestauranteDto } from './dto/actualizar-restaurante.dto';
+import { RestaurantEntity } from './entities/restaurant.entity';
+import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 
 @Injectable()
 export class RestauranteService {
   constructor(
-    @InjectRepository(RestauranteEntity)
-    private readonly restauranteRepository: Repository<RestauranteEntity>,
+    @InjectRepository(RestaurantEntity)
+    private readonly restauranteRepository: Repository<RestaurantEntity>,
   ) {}
 
   findAll() {
@@ -23,12 +23,12 @@ export class RestauranteService {
     });
   }
 
-  create(restaurante: CrearRestauranteDto) {
+  create(restaurante: CreateRestaurantDto) {
     const entity = this.restauranteRepository.create(restaurante);
     return this.restauranteRepository.save(entity);
   }
 
-  update(id: number, restaurante: ActualizarRestauranteDto) {
+  update(id: number, restaurante: UpdateRestaurantDto) {
     return this.restauranteRepository.update(id, restaurante);
   }
 

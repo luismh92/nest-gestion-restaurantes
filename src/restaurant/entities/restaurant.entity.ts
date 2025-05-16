@@ -11,7 +11,7 @@ import { TipoCocinaEntity } from './tipo-cocina.entity';
 import { PlatoEntity } from 'src/plato/entities/plato.entity';
 
 @Entity()
-export class RestauranteEntity {
+export class RestaurantEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

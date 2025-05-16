@@ -8,14 +8,14 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PlatoService } from './plato.service';
-import { ActualizarPlatoDto } from './dto/actualizar-plato.dto';
-import { CrearPlatoDto } from './dto/crear-plato.dto';
+import { RestauranteService } from './restaurant.service';
+import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 
-@ApiTags('Dishes')
-@Controller('dishes')
-export class PlatoController {
-  constructor(private readonly platoService: PlatoService) {}
+@ApiTags('Restaurants')
+@Controller('restaurants')
+export class RestauranteController {
+  constructor(private readonly restaurantService: RestauranteService) {}
 
   @Post()
   @ApiOperation({
@@ -27,8 +27,8 @@ export class PlatoController {
     status: 201,
     description: 'El plato ha sido creado exitosamente.',
   })
-  create(@Body() createPlatoDto: CrearPlatoDto) {
-    return this.platoService.create(createPlatoDto);
+  create(@Body() createPlatoDto: CreateRestaurantDto) {
+    return this.restaurantService.create(createPlatoDto);
   }
 
   @Get()
@@ -39,7 +39,7 @@ export class PlatoController {
   })
   @ApiResponse({ status: 200, description: 'Listado completo de platos.' })
   findAll() {
-    return this.platoService.findAll();
+    return this.restaurantService.findAll();
   }
 
   @Get(':id')
@@ -50,7 +50,7 @@ export class PlatoController {
   })
   @ApiResponse({ status: 200, description: 'Plato encontrado con éxito.' })
   findOne(@Param('id') id: string) {
-    return this.platoService.findOne(+id);
+    return this.restaurantService.findOne(+id);
   }
 
   @Patch(':id')
@@ -63,8 +63,8 @@ export class PlatoController {
     status: 200,
     description: 'El plato ha sido actualizado correctamente.',
   })
-  update(@Param('id') id: string, @Body() updatePlatoDto: ActualizarPlatoDto) {
-    return this.platoService.update(+id, updatePlatoDto);
+  update(@Param('id') id: string, @Body() updatePlatoDto: UpdateRestaurantDto) {
+    return this.restaurantService.update(+id, updatePlatoDto);
   }
 
   @Delete(':id')
@@ -77,6 +77,6 @@ export class PlatoController {
     description: 'El plato ha sido eliminado correctamente.',
   })
   remove(@Param('id') id: string) {
-    return this.platoService.delete(+id);
+    return this.restaurantService.delete(+id);
   }
 }

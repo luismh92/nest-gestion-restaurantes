@@ -1,31 +1,31 @@
 import { IsString, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ActualizarRestauranteDto {
+export class CreateRestaurantDto {
   @ApiProperty({
-    example: 'El Buen Sabor',
+    example: 'Restaurante la 10',
     description: 'Nombre del restaurante',
   })
   @IsString()
   nombre: string;
 
   @ApiProperty({
-    example: 'Carrera 45 #123-45, Medellín',
+    example: 'calle 10 # 20-30',
     description: 'Dirección del restaurante',
   })
   @IsString()
   direccion: string;
 
   @ApiProperty({
-    example: 'https://elbuen-sabor.com',
-    description: 'Sitio web oficial del restaurante',
+    example: 'https://example.com',
+    description: 'Sitio web del restaurante',
   })
   @IsString()
   web_site: string;
 
   @ApiProperty({
-    example: 3,
-    description: 'ID del tipo de cocina asociado (ej. 3 = Italiana)',
+    example: 1,
+    description: 'Id del tipo de cocina del restaurante',
   })
   @IsNumber()
   tipoCocinaId: number;

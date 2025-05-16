@@ -5,7 +5,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { RestauranteEntity } from 'src/restaurante/entities/restaurante.entity';
+import { RestaurantEntity } from 'src/restaurant/entities/restaurant.entity';
 
 export enum CategoriaPlato {
   ENTRADA = 'entrada',
@@ -35,11 +35,11 @@ export class PlatoEntity {
   })
   categoria: CategoriaPlato;
 
-  @ManyToMany(() => RestauranteEntity, (restaurante) => restaurante.platos)
+  @ManyToMany(() => RestaurantEntity, (restaurant) => restaurant.platos)
   @JoinTable({
     name: 'plato_restaurante',
     joinColumn: { name: 'platoId', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'restauranteId', referencedColumnName: 'id' },
   })
-  restaurantes: RestauranteEntity[];
+  restaurantes: RestaurantEntity[];
 }
