@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { RestauranteModule } from './restaurante/restaurante.module';
 import { PlatoModule } from './plato/plato.module';
 import { TipoCocinaModule } from './tipo-cocina/tipo-cocina.module';
-import { CategoriaEntity } from './plato/entities/categoria.entity';
 import { PlatoEntity } from './plato/entities/plato.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RestauranteEntity } from './restaurante/entities/restaurante.entity';
 import { TipoCocinaEntity } from './restaurante/entities/tipo-cocina.entity';
+import { PlatoController } from './plato/plato.controller';
 
 @Module({
   imports: [
@@ -19,12 +19,7 @@ import { TipoCocinaEntity } from './restaurante/entities/tipo-cocina.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'gestion-restaurantes',
-      entities: [
-        CategoriaEntity,
-        PlatoEntity,
-        TipoCocinaEntity,
-        RestauranteEntity,
-      ],
+      entities: [PlatoEntity, TipoCocinaEntity, RestauranteEntity],
       synchronize: true,
       dropSchema: true,
     }),
@@ -32,7 +27,7 @@ import { TipoCocinaEntity } from './restaurante/entities/tipo-cocina.entity';
     PlatoModule,
     RestauranteModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, PlatoController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -2,14 +2,17 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   ManyToMany,
   JoinTable,
-  JoinColumn,
 } from 'typeorm';
-
-import { CategoriaEntity } from 'src/plato/entities/categoria.entity';
 import { RestauranteEntity } from 'src/restaurante/entities/restaurante.entity';
+
+export enum CategoriaPlato {
+  ENTRADA = 'entrada',
+  PLATO_FUERTE = 'plato fuerte',
+  POSTRE = 'postre',
+  BEBIDA = 'bebida',
+}
 
 @Entity()
 export class PlatoEntity {
@@ -25,15 +28,12 @@ export class PlatoEntity {
   @Column('decimal')
   precio: number;
 
-  @ManyToOne(() => CategoriaEntity, (categoria) => categoria.platos, {
+  @Column({
+    type: 'enum',
+    enum: CategoriaPlato,
     nullable: false,
-    onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'categoriaId' })
-  categoria: CategoriaEntity;
-
-  @Column()
-  categoriaId: number;
+  categoria: CategoriaPlato;
 
   @ManyToMany(() => RestauranteEntity, (restaurante) => restaurante.platos)
   @JoinTable({

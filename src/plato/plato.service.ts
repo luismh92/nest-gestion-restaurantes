@@ -13,13 +13,12 @@ export class PlatoService {
   ) {}
 
   findAll() {
-    return this.platoRepository.find({ relations: ['categoria'] });
+    return this.platoRepository.find();
   }
 
   findOne(id: number) {
     return this.platoRepository.findOne({
       where: { id },
-      relations: ['categoria'],
     });
   }
 

@@ -7,6 +7,7 @@ import { forwardRef } from '@nestjs/common';
 import { PlatoModule } from 'src/plato/plato.module';
 import { TipoCocinaEntity } from './entities/tipo-cocina.entity';
 import { PlatoEntity } from 'src/plato/entities/plato.entity';
+import { RestauranteController } from './restaurante.controller';
 
 @Module({
   imports: [
@@ -18,5 +19,6 @@ import { PlatoEntity } from 'src/plato/entities/plato.entity';
     forwardRef(() => PlatoModule),
   ],
   providers: [RestauranteService],
+  controllers: [RestauranteController],
 })
 export class RestauranteModule {}
