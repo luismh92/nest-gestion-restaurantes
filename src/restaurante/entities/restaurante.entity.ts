@@ -7,7 +7,7 @@ import {
   ManyToMany,
 } from 'typeorm';
 
-import { TipoCociaEntity } from 'src/restaurante/entities/tipo-cocina.entity';
+import { TipoCocinaEntity } from './tipo-cocina.entity';
 import { PlatoEntity } from 'src/plato/entities/plato.entity';
 
 @Entity()
@@ -24,9 +24,9 @@ export class RestauranteEntity {
   @Column()
   web_site: string;
 
-  @ManyToOne(() => TipoCociaEntity, (tipoCocina) => tipoCocina.restaurantes)
+  @ManyToOne(() => TipoCocinaEntity, (tipoCocina) => tipoCocina.restaurantes)
   @JoinColumn({ name: 'tipoCocinaId' })
-  tipoCocina: TipoCociaEntity;
+  tipoCocina: TipoCocinaEntity;
 
   @Column()
   tipoCocinaId: number;

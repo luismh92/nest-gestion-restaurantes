@@ -8,7 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import { CategoriaEntity } from 'src/plato/entities/categoria.etity';
+import { CategoriaEntity } from 'src/plato/entities/categoria.entity';
 import { RestauranteEntity } from 'src/restaurante/entities/restaurante.entity';
 
 @Entity()
