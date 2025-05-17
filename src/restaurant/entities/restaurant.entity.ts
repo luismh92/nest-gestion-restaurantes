@@ -1,14 +1,15 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  ManyToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 
-import { TipoCocinaEntity } from './tipo-cocina.entity';
 import { DishEntity } from 'src/dish/entities/dish.entity';
+
+export enum TipoCocinaRestaurant {
+  ITALIANA = 'Italiana',
+  JAPONESA = 'Japonesa',
+  MEXICANA = 'Mexicana',
+  COLOMBIANA = 'Colombiana',
+  INDIA = 'India',
+  INTERNACIONAL = 'Internacional',
+}
 
 @Entity()
 export class RestaurantEntity {
@@ -24,12 +25,12 @@ export class RestaurantEntity {
   @Column()
   web_site: string;
 
-  @ManyToOne(() => TipoCocinaEntity, (tipoCocina) => tipoCocina.restaurantes)
-  @JoinColumn({ name: 'tipoCocinaId' })
-  tipoCocina: TipoCocinaEntity;
-
-  @Column()
-  tipoCocinaId: number;
+  @Column({
+    type: 'enum',
+    enum: TipoCocinaRestaurant,
+    nullable: false,
+  })
+  tipo_cocina: TipoCocinaRestaurant;
 
   @ManyToMany(() => DishEntity, (plato) => plato.restaurantes)
   platos: DishEntity[];

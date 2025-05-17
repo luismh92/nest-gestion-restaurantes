@@ -1,5 +1,6 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { TipoCocinaRestaurant } from '../entities/restaurant.entity';
 
 export class CreateRestaurantDto {
   @ApiProperty({
@@ -24,9 +25,12 @@ export class CreateRestaurantDto {
   web_site: string;
 
   @ApiProperty({
-    example: 1,
-    description: 'Id del tipo de cocina del restaurante',
+    example: TipoCocinaRestaurant.ITALIANA,
+    description:
+      'Tipo de cocina del restaurante (Italiana, Japonesa, Mexicana, Colombiana, India, Internacional)',
+    enum: TipoCocinaRestaurant,
   })
-  @IsNumber()
-  tipoCocinaId: number;
+  @IsEnum(TipoCocinaRestaurant)
+  @IsNotEmpty()
+  tipo_cocina: TipoCocinaRestaurant;
 }

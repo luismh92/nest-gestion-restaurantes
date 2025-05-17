@@ -7,8 +7,6 @@ import { TipoCocinaModule } from './tipo-cocina/tipo-cocina.module';
 import { DishEntity } from './dish/entities/dish.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RestaurantEntity } from './restaurant/entities/restaurant.entity';
-import { TipoCocinaEntity } from './restaurant/entities/tipo-cocina.entity';
-import { DishController } from './dish/dish.controller';
 
 @Module({
   imports: [
@@ -19,7 +17,7 @@ import { DishController } from './dish/dish.controller';
       username: 'postgres',
       password: '29062013',
       database: 'gestion-restaurantes',
-      entities: [DishEntity, TipoCocinaEntity, RestaurantEntity],
+      entities: [DishEntity, RestaurantEntity],
       synchronize: true,
       dropSchema: true,
     }),
