@@ -12,69 +12,91 @@ import { RestauranteService } from './restaurant.service';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 
-@ApiTags('Restaurants')
+@ApiTags('Restaurantes')
 @Controller('restaurants')
 export class RestauranteController {
   constructor(private readonly restaurantService: RestauranteService) {}
 
   @Post()
   @ApiOperation({
-    summary: 'Crear un nuevo plato',
+    summary: 'Crear un nuevo restaurante',
     description:
-      'Registra un nuevo plato en el sistema con su nombre, descripción, precio, categoría y los restaurantes asociados.',
+      'Registra un nuevo restaurante en el sistema con su nombre, ubicación y demás datos relevantes.',
   })
   @ApiResponse({
     status: 201,
-    description: 'El plato ha sido creado exitosamente.',
+    description: 'El restaurante ha sido creado exitosamente.',
   })
-  create(@Body() createPlatoDto: CreateRestaurantDto) {
-    return this.restaurantService.create(createPlatoDto);
+  create(@Body() createRestauranteDto: CreateRestaurantDto) {
+    return this.restaurantService.create(createRestauranteDto);
   }
 
   @Get()
   @ApiOperation({
-    summary: 'Listar todos los platos',
+    summary: 'Listar todos los restaurantes',
     description:
-      'Obtiene una lista de todos los platos registrados en el sistema, incluyendo su información básica y relaciones.',
+      'Recupera una lista de todos los restaurantes registrados, incluyendo su información básica.',
   })
-  @ApiResponse({ status: 200, description: 'Listado completo de platos.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Listado completo de restaurantes.',
+  })
   findAll() {
     return this.restaurantService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Obtener un plato por ID',
+    summary: 'Obtener un restaurante por ID',
     description:
-      'Busca y devuelve un plato específico mediante su identificador único.',
+      'Busca y devuelve los detalles de un restaurante específico mediante su identificador único.',
   })
-  @ApiResponse({ status: 200, description: 'Plato encontrado con éxito.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Restaurante encontrado exitosamente.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Restaurante no encontrado.',
+  })
   findOne(@Param('id') id: string) {
     return this.restaurantService.findOne(+id);
   }
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Actualizar un plato',
+    summary: 'Actualizar un restaurante',
     description:
-      'Modifica los datos de un plato existente, identificado por su ID.',
+      'Modifica la información de un restaurante existente, identificado por su ID.',
   })
   @ApiResponse({
     status: 200,
-    description: 'El plato ha sido actualizado correctamente.',
+    description: 'El restaurante ha sido actualizado correctamente.',
   })
-  update(@Param('id') id: string, @Body() updatePlatoDto: UpdateRestaurantDto) {
-    return this.restaurantService.update(+id, updatePlatoDto);
+  @ApiResponse({
+    status: 404,
+    description: 'Restaurante no encontrado.',
+  })
+  update(
+    @Param('id') id: string,
+    @Body() updateRestauranteDto: UpdateRestaurantDto,
+  ) {
+    return this.restaurantService.update(+id, updateRestauranteDto);
   }
 
   @Delete(':id')
   @ApiOperation({
-    summary: 'Eliminar un plato',
-    description: 'Elimina un plato del sistema según su identificador único.',
+    summary: 'Eliminar un restaurante',
+    description:
+      'Elimina un restaurante del sistema según su identificador único.',
   })
   @ApiResponse({
     status: 200,
-    description: 'El plato ha sido eliminado correctamente.',
+    description: 'El restaurante ha sido eliminado correctamente.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Restaurante no encontrado.',
   })
   remove(@Param('id') id: string) {
     return this.restaurantService.delete(+id);

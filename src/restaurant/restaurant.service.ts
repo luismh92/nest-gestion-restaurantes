@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RestaurantEntity } from './entities/restaurant.entity';
@@ -12,15 +12,28 @@ export class RestauranteService {
     private readonly restauranteRepository: Repository<RestaurantEntity>,
   ) {}
 
-  findAll() {
-    return this.restauranteRepository.find({ relations: ['platos'] });
+  async findAll() {
+    const restaurants = await this.restauranteRepository.find({
+      relations: ['platos'],
+    });
+
+    if (!restaurants) {
+      throw new NotFoundException('No se encontraron restaurantes');
+    }
+
+    return restaurants;
   }
 
-  findOne(id: number) {
-    return this.restauranteRepository.findOne({
+  async findOne(id: number) {
+    const restaurant = await this.restauranteRepository.findOne({
       where: { id },
       relations: ['platos'],
     });
+
+    if (!restaurant) {
+      throw new NotFoundException('Restaurante no encontrado');
+    }
+    return restaurant;
   }
 
   create(restaurante: CreateRestaurantDto) {
@@ -28,11 +41,22 @@ export class RestauranteService {
     return this.restauranteRepository.save(entity);
   }
 
-  update(id: number, restaurante: UpdateRestaurantDto) {
-    return this.restauranteRepository.update(id, restaurante);
+  async update(id: number, restauranteDto: UpdateRestaurantDto) {
+    const restaurant = await this.restauranteRepository.findOneBy({ id });
+
+    if (!restaurant) {
+      throw new NotFoundException('Restaurante no encontrado');
+    }
+
+    return this.restauranteRepository.update(id, restauranteDto);
   }
 
-  delete(id: number) {
+  async delete(id: number) {
+    const restaurant = await this.restauranteRepository.findOneBy({ id });
+
+    if (!restaurant) {
+      throw new NotFoundException('Restaurante no encontrado');
+    }
     return this.restauranteRepository.delete(id);
   }
 }
